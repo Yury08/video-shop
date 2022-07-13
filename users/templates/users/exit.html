@@ -1,0 +1,13 @@
+{% extends 'courses/main-layout.html' %}
+
+{% block title %}
+  Вы успешно вышли с аккаунта
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <h1>Вы успешно вышли с аккаунта</h1>
+      <a href="{% url 'user' %}">Войти в личный кабинет снова</a>
+    </div>
+{% endblock %}
+

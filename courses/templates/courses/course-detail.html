@@ -1,0 +1,43 @@
+{% extends 'courses/main-layout.html' %}
+{% block content %}
+
+    <div class="main-block">
+        <div class="one-course">
+            <h3>{{ object.title }}</h3>
+
+
+            {% if object.img %}
+                <img height="280px" width="425px" src="{{ object.img.url }}" alt="{{ object.title }}">
+            {% else %}
+                <img height="280px" width="425px" src="/pictures/default.jpg" alt="{{ object.title }}">
+                {% endif %}
+        </div>
+
+    <div class="aside-course">
+        <h3>Описание курса</h3>
+        <p>{{ object.description }}</p>
+        {% if object.free == True %}
+            <ul>
+            {% for lesson in lessons %}
+                <li><a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% if user.is_authenticated == False %}
+                <p><a href="{% url 'reg' %}">Зарегистрируйтесь</a> на сайте и купите подписку, что бы посмотреть этот курс</p>
+             {% else %}
+                {% if user.profile.account_type == 'Полный пакет' %}
+                    <ul>
+                    {% for lesson in lessons %}
+                        <li><a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a></li>
+                    {% endfor %}
+                    </ul>
+                 {% else %}
+                     <p>Необходимо купить<a href="{% url 'tarrifs' %}">подписку</a> на сайте, что бы посмотреть этот курс</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    </div>
+    </div>
+
+{% endblock %}

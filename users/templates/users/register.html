@@ -1,0 +1,18 @@
+{% extends 'courses/main-layout.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+  <h1>{{ title }}</h1>
+      <form method="post" class="form-register">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-warning" type="submit">Зарегистрироваться</button>
+        <hr>
+        <p>Уже зарегистрированы? <a href="{% url 'user' %}">Войт в личный кабинет</a></p>
+      </form>
+    </div>
+{% endblock %}

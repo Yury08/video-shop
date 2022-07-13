@@ -1,0 +1,35 @@
+{% extends 'courses/main-layout.html' %}
+{% block content %}
+
+    <div class="main-block">
+        <div class="one-course">
+            <h3>{{ object.title }}</h3>
+
+
+            {% if object.img %}
+                <img height="280px" width="425px" src="{{ object.img.url }}" alt="{{ object.title }}">
+            {% else %}
+                <img height="280px" width="425px" src="/pictures/default.jpg" alt="{{ object.title }}">
+                {% endif %}
+        </div>
+
+        <div class="aside-course">
+            <h3>Видео урок - {{ title }}</h3>
+            <p>{{ desc }}</p>
+            {% if object.free == True %}
+               <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video }}" title="YouTube video player"
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+            {% elif user.is_authenticated == False %}
+                <p><a href="{% url 'reg' %}">Зарегистрируйтесь</a> на сайте и купите подписку, что бы посмотреть этот курс</p>
+            {% elif user.profile.account_type == 'Бесплатный пакет' %}
+                <p>Необходимо купить<a href="{% url 'tarrifs' %}">подписку</a> на сайте, что бы посмотреть этот курс</p>
+            {% else %}
+                 <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video }}" title="YouTube video player"
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
